@@ -3,6 +3,7 @@ package com.target.nextbus.controller;
 
 import com.target.nextbus.model.Route;
 import com.target.nextbus.model.Stop;
+import com.target.nextbus.service.DepartureService;
 import com.target.nextbus.service.DirectionService;
 import com.target.nextbus.service.RouteService;
 import com.target.nextbus.service.StopService;
@@ -18,13 +19,15 @@ public class RouteController {
     private final RouteService routeService;
     private final DirectionService directionService;
     private final StopService stopService;
+    private final DepartureService departureService;
 
     public RouteController(RouteService routeService,
                            DirectionService directionService,
-                           StopService stopService) {
+                           StopService stopService, DepartureService departureService) {
         this.routeService = routeService;
         this.directionService = directionService;
         this.stopService = stopService;
+        this.departureService = departureService;
     }
 
     @GetMapping
@@ -43,5 +46,17 @@ public class RouteController {
         Stop stopObject = stopService.findStop(routeObject.getRoute_id(), directionId, stop);
 
         return "Stop code: " + stopObject.getPlace_code();
+    }
+
+    @GetMapping("/next")
+    public String getNextBusTime(
+            @RequestParam String route,
+            @RequestParam String direction,
+            @RequestParam String stop
+    ) {
+        Route routeObject = routeService.findRouteByName(route);
+        int directionId = directionService.getDirectionId(routeObject.getRoute_id(), direction);
+        Stop stopObject = stopService.findStop(routeObject.getRoute_id(), directionId, stop);
+        return departureService.getNextDepartureMessage(routeObject.getRoute_id(), directionId, stopObject.getPlace_code());
     }
 }

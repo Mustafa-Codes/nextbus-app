@@ -1,8 +1,6 @@
 package com.target.nextbus.client;
 
-import com.target.nextbus.model.Direction;
-import com.target.nextbus.model.Route;
-import com.target.nextbus.model.Stop;
+import com.target.nextbus.model.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -46,5 +44,15 @@ public class MetroTransitClient {
                         .bodyToMono(Stop[].class)
                         .block()
         );
+    }
+
+    public List<Departure> getDepartures(String routeId, int directionId, String placeCode) {
+        DepartureResponse response = webClient.get()
+            .uri("/nextripv2/{routeId}/{directionId}/{placeCode}", routeId, directionId, placeCode)
+            .retrieve()
+            .bodyToMono(DepartureResponse.class)
+            .block();
+
+        return response.getDepartures();
     }
 }
