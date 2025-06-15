@@ -1,9 +1,12 @@
 com/target/nextbus/model/Departure.class
+com/target/nextbus/exception/GlobalExceptionHandler.class
 com/target/nextbus/controller/RouteController.class
+com/target/nextbus/model/DepartureResponse.class
 com/target/nextbus/service/DepartureService.class
 com/target/nextbus/service/DirectionService.class
 com/target/nextbus/model/Direction.class
 com/target/nextbus/exception/MultipleMatchesException.class
+com/target/nextbus/model/NextBusResponse.class
 com/target/nextbus/exception/NotFoundException.class
 com/target/nextbus/service/StopService.class
 com/target/nextbus/client/MetroTransitClient.class
