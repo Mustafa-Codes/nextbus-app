@@ -1,10 +1,27 @@
 package com.target.nextbus.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
 public class Direction {
-    private int direction_id;
-    private String direction_name;
-}
+    @JsonProperty("direction_id")
+    private int directionId;
 
+    @JsonProperty("direction_name")
+    private String directionName;
+
+    public int getDirectionId() {
+        return directionId;
+    }
+
+    public void setDirectionId(int directionId) {
+        this.directionId = directionId;
+    }
+
+    public String getDirectionName() {
+        return directionName;
+    }
+
+    public void setDirectionName(String directionName) {
+        this.directionName = directionName;
+    }
+}

@@ -1,0 +1,4 @@
+com/target/nextbus/service/StopServiceTest.class
+com/target/nextbus/service/DirectionServiceTest.class
+com/target/nextbus/service/RouteServiceTest.class
+com/target/nextbus/service/DepartureServiceTest.class

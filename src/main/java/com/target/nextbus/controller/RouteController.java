@@ -9,7 +9,8 @@ import com.target.nextbus.service.DepartureService;
 import com.target.nextbus.service.DirectionService;
 import com.target.nextbus.service.RouteService;
 import com.target.nextbus.service.StopService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/route")
-@Slf4j
 public class RouteController {
-
+    private static final Logger log = LoggerFactory.getLogger(RouteController.class);
     private final RouteService routeService;
     private final DirectionService directionService;
     private final StopService stopService;
@@ -46,10 +46,10 @@ public class RouteController {
             @RequestParam String stop
     ) {
         Route routeObject = routeService.findRouteByName(route);
-        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRoute_id(), direction);
-        Stop stopObject = stopService.findStop(routeObject.getRoute_id(), matchedDirection.getDirection_id(), stop);
+        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRouteId(), direction);
+        Stop stopObject = stopService.findStop(routeObject.getRouteId(), matchedDirection.getDirectionId(), stop);
 
-        return "Stop code: " + stopObject.getPlace_code();
+        return "Stop code: " + stopObject.getPlaceCode();
     }
 
     @GetMapping("/next")
@@ -59,9 +59,9 @@ public class RouteController {
             @RequestParam String stop
     ) {
         Route routeObject = routeService.findRouteByName(route);
-        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRoute_id(), direction);
-        Stop stopObject = stopService.findStop(routeObject.getRoute_id(), matchedDirection.getDirection_id(), stop);
-        return departureService.getNextDepartureMessage(routeObject.getRoute_id(), matchedDirection.getDirection_id(), stopObject.getPlace_code());
+        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRouteId(), direction);
+        Stop stopObject = stopService.findStop(routeObject.getRouteId(), matchedDirection.getDirectionId(), stop);
+        return departureService.getNextDepartureMessage(routeObject.getRouteId(), matchedDirection.getDirectionId(), stopObject.getPlaceCode());
     }
 
     @GetMapping("/nextbus")
@@ -73,16 +73,16 @@ public class RouteController {
         log.info("GET /route/nextbus | route='{}', direction='{}', stop='{}'", route, direction, stop);
 
         Route routeObject = routeService.findRouteByName(route);
-        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRoute_id(), direction);
-        Stop stopObject = stopService.findStop(routeObject.getRoute_id(), matchedDirection.getDirection_id(), stop);
-        String message = departureService.getNextDepartureMessage(routeObject.getRoute_id(), matchedDirection.getDirection_id(), stopObject.getPlace_code());
+        Direction matchedDirection = directionService.getMatchedDirection(routeObject.getRouteId(), direction);
+        Stop stopObject = stopService.findStop(routeObject.getRouteId(), matchedDirection.getDirectionId(), stop);
+        String message = departureService.getNextDepartureMessage(routeObject.getRouteId(), matchedDirection.getDirectionId(), stopObject.getPlaceCode());
 
-        log.info("Resolved next bus: {} | {} | {} → {}", routeObject.getRoute_label(), stopObject.getDescription(), direction, message);
+        log.info("Resolved next bus: {} | {} | {} → {}", routeObject.getRouteLabel(), stopObject.getDescription(), direction, message);
 
         return new NextBusResponse(
-                routeObject.getRoute_label(),
+                routeObject.getRouteLabel(),
                 stopObject.getDescription(),
-                matchedDirection.getDirection_name().toLowerCase(),
+                matchedDirection.getDirectionName().toLowerCase(),
                 message
         );
     }

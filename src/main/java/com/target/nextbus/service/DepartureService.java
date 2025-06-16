@@ -23,13 +23,13 @@ public class DepartureService {
         List<Departure> departures = client.getDepartures(routeId, directionId, placeCode);
 
         if (departures.isEmpty()) {
-            return "No more buses today for this route, stop, and direction";
+            return "No more buses today for this route, stop, and direction.";
         }
 
         Departure next = departures.get(0);
 
         ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime departureTime = Instant.ofEpochSecond(next.getDeparture_time()).atZone(ZoneId.systemDefault());
+        ZonedDateTime departureTime = Instant.ofEpochSecond(next.getDepartureTime()).atZone(ZoneId.systemDefault());
 
         long minutes = Duration.between(now, departureTime).toMinutes();
 

@@ -23,7 +23,7 @@ public class RouteService {
         List<Route> allRoutes = metroTransitClient.fetchAllRoutes();
 
         List<Route> matchedRoutes = allRoutes.stream()
-                .filter(route -> route.getRoute_label().toLowerCase().contains(partialName.toLowerCase()))
+                .filter(route -> route.getRouteLabel().toLowerCase().contains(partialName.toLowerCase()))
                 .collect(Collectors.toList());
 
         if (matchedRoutes.isEmpty()) {

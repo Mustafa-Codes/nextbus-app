@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Next Bus App</title>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #001f4d;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px 40px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #333333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: 600;
+            color: #555555;
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+        }
+        input[type="text"] {
+            margin-top: 6px;
+            padding: 10px;
+            border: 1.8px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
+        button {
+            margin-top: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 25px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background-color: #e9f5ff;
+            color: #054a91;
+            font-size: 16px;
+            line-height: 1.4;
+            min-height: 120px;
+        }
+        #result.error {
+            background-color: #ffe6e6;
+            color: #a70000;
+            border: 1px solid #a70000;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Next Bus Finder</h2>
+    <form id="nextBusForm">
+        <label>Route:
+            <input type="text" id="route" name="route" placeholder="ex: METRO Blue Line" required />
+        </label>
+        <label>Direction:
+            <input type="text" id="direction" name="direction" placeholder="ex: northbound" required />
+        </label>
+        <label>Stop:
+            <input type="text" id="stop" name="stop" placeholder="ex: Target Field Station Platform 1" required />
+        </label>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+        document.getElementById('nextBusForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('error');
+            resultDiv.textContent = 'Loading...';
+
+            const route = encodeURIComponent(document.getElementById('route').value.trim());
+            const direction = encodeURIComponent(document.getElementById('direction').value.trim());
+            const stop = encodeURIComponent(document.getElementById('stop').value.trim());
+
+            try {
+                const response = await fetch(`/route/nextbus?route=${route}&direction=${direction}&stop=${stop}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <h3>Next Bus Details</h3>
+                        <p><strong>Route:</strong> ${data.route}</p>
+                        <p><strong>Stop:</strong> ${data.stop}</p>
+                        <p><strong>Direction:</strong> ${data.direction}</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                    `;
+                } else {
+                    const errorData = await response.json();
+                    resultDiv.classList.add('error');
+                    resultDiv.textContent = errorData.error || 'An error occurred fetching next bus info.';
+                }
+            } catch (err) {
+                resultDiv.classList.add('error');
+                resultDiv.textContent = 'Network error. Please try again later.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -21,7 +21,7 @@ public class MetroTransitClient {
     public List<Route> fetchAllRoutes() {
         return Arrays.asList(
             webClient.get()
-                .uri("/nextripv2/routes")
+                    .uri("/nextripv2/routes")
                     .retrieve().bodyToMono(Route[].class).block()
         );
     }

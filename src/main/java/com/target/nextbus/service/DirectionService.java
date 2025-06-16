@@ -20,7 +20,7 @@ public class DirectionService {
         List<Direction> directions = client.getDirectionsForRoute(routeId);
 
         return directions.stream()
-                .filter(direction -> direction.getDirection_name().toLowerCase().contains(inputDirection.toLowerCase()))
+                .filter(direction -> direction.getDirectionName().toLowerCase().contains(inputDirection.toLowerCase()))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Invalid direction for this route: " + inputDirection));
     }

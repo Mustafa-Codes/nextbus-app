@@ -1,11 +1,26 @@
 package com.target.nextbus.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
 public class Departure {
-    private boolean actual;
-    private String departure_text;
-    private Long departure_time;
+    private String departureText;
 
+    @JsonProperty("departure_time")
+    private Long departureTime;
+
+    public String getDepartureText() {
+        return departureText;
+    }
+
+    public void setDepartureText(String departureText) {
+        this.departureText = departureText;
+    }
+
+    public Long getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Long departureTime) {
+        this.departureTime = departureTime;
+    }
 }
