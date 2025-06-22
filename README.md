@@ -92,7 +92,7 @@ GET /route/nextbus?route=METRO Blue Line&direction=north&stop=Target Field Stati
 ## Notes
 
 - Uses WebClient to hit the Metro Transit API
-- Returns clear error messages if route/direction/stop are incorrect
+- Returns clear error messages if route/stop/direction are incorrect
 - Simple JavaScript + HTML frontend with Thymeleaf
 
 ---
