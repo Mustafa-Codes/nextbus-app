@@ -64,8 +64,8 @@ http://localhost:8080/
 You'll see a form where you can enter:
 
 - Route name (like `METRO Blue Line`)
-- Direction (like `north`)
 - Stop name (like `Target Field Station Platform 1`)
+- Direction (like `north`)
 
 It will return the route, direction, stop name, and next departure message.
 
@@ -84,7 +84,7 @@ All routes are under `/route`
 
 ### Example request:
 ```
-GET /route/nextbus?route=METRO Blue Line&direction=north&stop=Target Field Station Platform 1
+GET /route/nextbus?route=METRO Blue Line&stop=Target Field Station Platform 1&direction=north
 ```
 
 ---
@@ -92,7 +92,7 @@ GET /route/nextbus?route=METRO Blue Line&direction=north&stop=Target Field Stati
 ## Notes
 
 - Uses WebClient to hit the Metro Transit API
-- Returns clear error messages if route/direction/stop are incorrect
+- Returns clear error messages if route/stop/direction are incorrect
 - Simple JavaScript + HTML frontend with Thymeleaf
 
 ---
