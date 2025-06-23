@@ -77,7 +77,7 @@ public class RouteController {
         Stop stopObject = stopService.findStop(routeObject.getRouteId(), matchedDirection.getDirectionId(), stop);
         String message = departureService.getNextDepartureMessage(routeObject.getRouteId(), matchedDirection.getDirectionId(), stopObject.getPlaceCode());
 
-        log.info("Resolved next bus: {} | {} | {} → {}", routeObject.getRouteLabel(), stopObject.getDescription(), direction, message);
+        log.info("Resolved next bus: {} | {} | {} → {}", routeObject.getRouteLabel(), stopObject.getDescription(), matchedDirection.getDirectionName(), message);
 
         return new NextBusResponse(
                 routeObject.getRouteLabel(),
