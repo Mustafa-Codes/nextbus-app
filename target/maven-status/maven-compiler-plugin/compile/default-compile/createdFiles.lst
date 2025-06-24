@@ -2,7 +2,6 @@ com/target/nextbus/model/Departure.class
 com/target/nextbus/exception/GlobalExceptionHandler.class
 com/target/nextbus/controller/RouteController.class
 com/target/nextbus/model/DepartureResponse.class
-com/target/nextbus/config/WebConfig.class
 com/target/nextbus/controller/ViewController.class
 com/target/nextbus/service/DepartureService.class
 com/target/nextbus/service/DirectionService.class

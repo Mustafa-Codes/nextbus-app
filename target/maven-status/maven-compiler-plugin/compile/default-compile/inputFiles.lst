@@ -1,6 +1,5 @@
 /Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/NextBusApplication.java
 /Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/client/MetroTransitClient.java
-/Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/config/WebConfig.java
 /Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/controller/RouteController.java
 /Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/controller/ViewController.java
 /Users/swish/Desktop/Target - Workday/NextBusApp/src/main/java/com/target/nextbus/exception/GlobalExceptionHandler.java
